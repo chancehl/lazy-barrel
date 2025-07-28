@@ -7,15 +7,15 @@ A simple Python utility that creates barrel files for JavaScript/TypeScript proj
 A barrel file is an index file that re-exports multiple modules from a directory, making it easier to import multiple items from a single location. Instead of importing from multiple files:
 
 ```javascript
-import { ComponentA } from './components/ComponentA';
-import { ComponentB } from './components/ComponentB';
-import { ComponentC } from './components/ComponentC';
+import { ComponentA } from "./components/ComponentA";
+import { ComponentB } from "./components/ComponentB";
+import { ComponentC } from "./components/ComponentC";
 ```
 
 You can import from a single barrel file:
 
 ```javascript
-import { ComponentA, ComponentB, ComponentC } from './components';
+import { ComponentA, ComponentB, ComponentC } from "./components";
 ```
 
 ## Usage
@@ -27,7 +27,8 @@ python main.py -d <directory> -o <output_file>
 ### Parameters
 
 - `-d, --directory`: The directory containing the files you want to export
-- `-o, --output`: The output file path where the barrel file will be created
+- `-o, --output`: The output file path where the barrel file will be created (optional)
+- `-e, --extension`: The output file extension (only js or ts supported)
 
 ### Example
 
@@ -38,9 +39,9 @@ python main.py -d ./src/components -o ./src/components/index.ts
 This will scan all files in the `./src/components` directory and create an `index.ts` file with export statements like:
 
 ```typescript
-export * from './ComponentA'
-export * from './ComponentB'
-export * from './ComponentC'
+export * from "./ComponentA";
+export * from "./ComponentB";
+export * from "./ComponentC";
 ```
 
 ## How it Works
@@ -78,11 +79,13 @@ make help
 If you prefer to set up manually or don't have make available:
 
 1. Create a virtual environment:
+
 ```bash
 python -m venv .venv
 ```
 
 2. Activate the virtual environment:
+
 ```bash
 # On macOS/Linux
 source .venv/bin/activate
@@ -92,11 +95,13 @@ source .venv/bin/activate
 ```
 
 3. Install dependencies:
+
 ```bash
 pip install -r requirements.txt
 ```
 
 4. To deactivate the virtual environment when done:
+
 ```bash
 deactivate
 ```
@@ -104,21 +109,25 @@ deactivate
 ### Building Standalone Executable
 
 #### Using Makefile (Recommended)
+
 ```bash
 make build
 ```
 
 #### Manual Build
+
 This project includes PyInstaller configuration to create a standalone executable:
 
 1. Make sure your virtual environment is activated and dependencies are installed
 2. Build the executable:
+
 ```bash
 pyinstaller barrel.spec
 ```
 
 3. The executable will be created in the `dist/` directory
 4. You can then run the executable directly without Python:
+
 ```bash
 # On macOS/Linux
 ./dist/barrel -d ./src/components -o ./src/components/index.ts
@@ -132,14 +141,17 @@ dist\barrel.exe -d ./src/components -o ./src/components/index.ts
 To install the barrel executable globally so you can run it from anywhere:
 
 #### Using Makefile (macOS/Linux)
+
 ```bash
 make install
 ```
+
 This will copy the executable to `/usr/local/bin/` and make it available system-wide.
 
 #### Manual Installation
 
 **macOS/Linux:**
+
 ```bash
 # Build first if you haven't already
 make build
@@ -153,6 +165,7 @@ barrel -d ./src/components -o ./src/components/index.ts
 ```
 
 **Windows:**
+
 ```bash
 # Build first if you haven't already
 make build
@@ -163,7 +176,7 @@ make build
 copy dist\barrel.exe C:\Windows\System32\barrel.exe
 
 # Now you can run from anywhere
-barrel -d ./src/components -o ./src/components/index.ts
+barrel -d ./src/components
 ```
 
 ### Available Makefile Commands
