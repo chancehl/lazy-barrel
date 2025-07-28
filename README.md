@@ -50,10 +50,59 @@ export * from './ComponentC'
 3. All export statements are written to the specified output file
 4. The script reports how many files were processed
 
+## Development Setup
+
+### Setting up Virtual Environment
+
+1. Create a virtual environment:
+```bash
+python -m venv .venv
+```
+
+2. Activate the virtual environment:
+```bash
+# On macOS/Linux
+source .venv/bin/activate
+
+# On Windows
+.venv\Scripts\activate
+```
+
+3. Install dependencies:
+```bash
+pip install -r requirements.txt
+```
+
+4. To deactivate the virtual environment when done:
+```bash
+deactivate
+```
+
+### Building Standalone Executable
+
+This project includes PyInstaller configuration to create a standalone executable:
+
+1. Make sure your virtual environment is activated and dependencies are installed
+2. Build the executable:
+```bash
+pyinstaller barrel.spec
+```
+
+3. The executable will be created in the `dist/` directory
+4. You can then run the executable directly without Python:
+```bash
+# On macOS/Linux
+./dist/barrel -d ./src/components -o ./src/components/index.ts
+
+# On Windows
+dist\barrel.exe -d ./src/components -o ./src/components/index.ts
+```
+
 ## Requirements
 
 - Python 3.x
-- No external dependencies required (uses only standard library)
+- virtualenv (for isolated development environment)
+- PyInstaller (for creating standalone executables)
 
 ## Notes
 
