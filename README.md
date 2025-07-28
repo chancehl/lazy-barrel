@@ -52,7 +52,30 @@ export * from './ComponentC'
 
 ## Development Setup
 
-### Setting up Virtual Environment
+### Quick Setup with Makefile
+
+The easiest way to get started is using the included Makefile:
+
+```bash
+# Set up development environment (creates venv and installs dependencies)
+make setup
+
+# Activate the virtual environment
+source .venv/bin/activate
+
+# Build the standalone executable
+make build
+
+# Clean build artifacts
+make clean
+
+# See all available commands
+make help
+```
+
+### Manual Setup (Alternative)
+
+If you prefer to set up manually or don't have make available:
 
 1. Create a virtual environment:
 ```bash
@@ -80,6 +103,12 @@ deactivate
 
 ### Building Standalone Executable
 
+#### Using Makefile (Recommended)
+```bash
+make build
+```
+
+#### Manual Build
 This project includes PyInstaller configuration to create a standalone executable:
 
 1. Make sure your virtual environment is activated and dependencies are installed
@@ -97,6 +126,55 @@ pyinstaller barrel.spec
 # On Windows
 dist\barrel.exe -d ./src/components -o ./src/components/index.ts
 ```
+
+### Installing Globally
+
+To install the barrel executable globally so you can run it from anywhere:
+
+#### Using Makefile (macOS/Linux)
+```bash
+make install
+```
+This will copy the executable to `/usr/local/bin/` and make it available system-wide.
+
+#### Manual Installation
+
+**macOS/Linux:**
+```bash
+# Build first if you haven't already
+make build
+
+# Copy to a directory in your PATH (requires sudo)
+sudo cp dist/barrel /usr/local/bin/barrel
+sudo chmod +x /usr/local/bin/barrel
+
+# Now you can run from anywhere
+barrel -d ./src/components -o ./src/components/index.ts
+```
+
+**Windows:**
+```bash
+# Build first if you haven't already
+make build
+
+# Copy barrel.exe to a directory in your PATH, such as:
+# - C:\Windows\System32\ (requires admin privileges)
+# - Or create a bin folder in your user directory and add it to PATH
+copy dist\barrel.exe C:\Windows\System32\barrel.exe
+
+# Now you can run from anywhere
+barrel -d ./src/components -o ./src/components/index.ts
+```
+
+### Available Makefile Commands
+
+- `make setup` - Create virtual environment and install dependencies
+- `make build` - Build standalone executable
+- `make clean` - Remove build artifacts and cache files
+- `make clean-all` - Remove everything including virtual environment
+- `make dev` - Quick development setup with helpful reminders
+- `make install` - Install executable globally (macOS/Linux)
+- `make help` - Show all available commands
 
 ## Requirements
 
